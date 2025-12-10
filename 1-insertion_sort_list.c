@@ -55,31 +55,38 @@ void move_node(listint_t *current, listint_t *new_position, listint_t **list)
 */
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *current, *position, *next;
+	listint_t *current, *temp, *prev_n;
 
-	if (list == NULL)
-		return;
-
-	if (*list == NULL)
-		return;
-
-	if ((*list)->next == NULL)
+	if (list == NULL || *list == NULL || (*list) == NULL)
 		return;
 
 	current = (*list)->next;
 
 	while (current)
 	{
-		next = current->next;
+		temp = current->next;
 
-		position = find_position(*list, current->n);
-
-		if (position != current && position != current->next)
+		while (current->prev != NULL && current->n < current->prev->n)
 		{
-			move_node(current, position, list);
+			prev_n = current->prev;
+
+			prev_n->next = current->next;
+			if (current->next != NULL)
+				current->next->prev = prev_n;
+
+			current->prev = prev_n->prev;
+			current->next = prev_n;
+
+			if (prev_n->prev != NULL)
+				prev_n->prev->next = current;
+			else
+				*list = current;
+
+			prev_n->prev = current;
+
 			print_list(*list);
 		}
 
-		current = next;
+		current = temp;
 	}
 }
