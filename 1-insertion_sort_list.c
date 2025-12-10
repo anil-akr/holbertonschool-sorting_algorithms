@@ -2,38 +2,41 @@
 /**
 * insertion_sort_list - Sorts a doubly linked list using insertion sort.
 * @list: Double pointer to the head of the list.
+*
+* Description: Prints the list after every swap.
 */
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *current, *temp, *prev_n;
+	listint_t *current;
+	listint_t *temp;
+	listint_t *prev;
 
 	if (list == NULL || *list == NULL || (*list)->next == NULL)
 		return;
 
 	current = (*list)->next;
-
-	while (current)
+	while (current != NULL)
 	{
 		temp = current;
 		current = current->next;
 
 		while (temp->prev != NULL && temp->n < temp->prev->n)
 		{
-			prev_n = temp->prev;
+			prev = temp->prev;
 
-			prev_n->next = temp->next;
+			prev->next = temp->next;
 			if (temp->next != NULL)
-				temp->next->prev = prev_n;
+				temp->next->prev = prev;
 
-			temp->next = prev_n;
-			temp->prev = prev_n->prev;
+			temp->next = prev;
+			temp->prev = prev->prev;
 
-			if (prev_n->prev != NULL)
-				prev_n->prev->next = temp;
+			if (prev->prev != NULL)
+				prev->prev->next = temp;
 			else
 				*list = temp;
 
-			prev_n->prev = temp;
+			prev->prev = temp;
 
 			print_list(*list);
 		}
