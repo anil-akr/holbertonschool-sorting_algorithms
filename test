@@ -1,0 +1,38 @@
+#include "sort.h"
+
+void insertion_sort_list(listint_t **list)
+{
+    listint_t *current, *temp;
+
+    if (!list || !*list || !(*list)->next)
+        return;
+
+    current = (*list)->next;
+    while (current)
+    {
+        temp = current;
+        current = current->next;
+
+        while (temp->prev && temp->n < temp->prev->n)
+        {
+            /* Swap temp avec temp->prev */
+            listint_t *prev = temp->prev;
+
+            prev->next = temp->next;
+            if (temp->next)
+                temp->next->prev = prev;
+
+            temp->next = prev;
+            temp->prev = prev->prev;
+
+            if (prev->prev)
+                prev->prev->next = temp;
+            else
+                *list = temp;  // nouveau head
+
+            prev->prev = temp;
+
+            print_list(*list);
+        }
+    }
+}
