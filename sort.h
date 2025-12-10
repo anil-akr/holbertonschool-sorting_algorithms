@@ -7,7 +7,7 @@
 
 typedef struct listint_s
 {
-    int n;
+    const int n;
     struct listint_s *prev;
     struct listint_s *next;
 } listint_t;
