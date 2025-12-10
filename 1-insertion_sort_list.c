@@ -1,6 +1,7 @@
 #include "sort.h"
 /**
-* find_position - Finds the correct insertion position for a value in sorted list.
+* find_position - Finds the correct insertion position
+*					for a value in sorted list.
 * @head: Pointer to the head of the sorted list.
 * @value: Value to insert.
 *
@@ -57,7 +58,7 @@ void insertion_sort_list(listint_t **list)
 {
 	listint_t *current, *temp, *prev_n;
 
-	if (list == NULL || *list == NULL || (*list) == NULL)
+	if (list == NULL || *list == NULL || (*list)->next == NULL)
 		return;
 
 	current = (*list)->next;
